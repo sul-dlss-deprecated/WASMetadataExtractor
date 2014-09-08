@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_M6as0L_5EeO915gVfQ90-Q" name="NewModel">
+  <packageImport xmi:id="_MT8qQMAbEeO915gVfQ90-Q">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Package" xmi:id="_OYbqgMAbEeO915gVfQ90-Q" name="org.stanford.sul.webarchive">
+    <packagedElement xmi:type="uml:Class" xmi:id="_wq4gsMATEeO915gVfQ90-Q" name="ExtractorFactory">
+      <ownedOperation xmi:id="_6qXBkMATEeO915gVfQ90-Q" name="GetExtractor">
+        <ownedParameter xmi:id="_6eoyYMAWEeO915gVfQ90-Q" name="type"/>
+        <ownedParameter xmi:id="_B2ZqIMAXEeO915gVfQ90-Q" name="wrapReader" type="_zc4U8MAYEeO915gVfQ90-Q" direction="return"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_uNKHwMAYEeO915gVfQ90-Q" name="WAReaderInterface">
+      <ownedAttribute xmi:id="_G3xK4MAaEeO915gVfQ90-Q" name="fileName">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="_6XIU0MAZEeO915gVfQ90-Q" name="readFile">
+        <ownedParameter xmi:id="_fQVbwMAbEeO915gVfQ90-Q" name="metadataRepository" type="_XR6CEMAaEeO915gVfQ90-Q" direction="return"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_XR6CEMAaEeO915gVfQ90-Q" name="MetadataRepository">
+      <ownedAttribute xmi:id="_vtNTUMAaEeO915gVfQ90-Q" name="headerLine">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_uWQXYMAuEeOD8ehNG7D_JA" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_uWQXYcAuEeOD8ehNG7D_JA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_3I-hUMAaEeO915gVfQ90-Q" name="payload">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/XMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_6_uJYMAaEeO915gVfQ90-Q" name="recordCount">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/XMLPrimitiveTypes.library.uml#Int"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="__FhhIMAaEeO915gVfQ90-Q" name="checksum">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_jKVMIMAbEeO915gVfQ90-Q" name="metadataMap">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jKdvAMAbEeO915gVfQ90-Q"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jKdvAcAbEeO915gVfQ90-Q" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_zc4U8MAYEeO915gVfQ90-Q" name="WarcReaderWrapper">
+      <generalization xmi:id="_8rR-MMAYEeO915gVfQ90-Q" general="_uNKHwMAYEeO915gVfQ90-Q"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="__5zvsMAYEeO915gVfQ90-Q" name="ArcReaderWrapper">
+      <generalization xmi:id="_GNbp4MAZEeO915gVfQ90-Q" general="_uNKHwMAYEeO915gVfQ90-Q"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_XD8FQMAfEeOD8ehNG7D_JA" name="MetadataParser">
+      <ownedOperation xmi:id="_zmijEMAfEeOD8ehNG7D_JA" name="MetadataParser">
+        <ownedParameter xmi:id="_1HMdgMAfEeOD8ehNG7D_JA" name="metadataRepository" type="_XR6CEMAaEeO915gVfQ90-Q" direction="inout"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_VnLW4MAgEeOD8ehNG7D_JA" name="MetadataRecordParser" isAbstract="true"/>
+  </packagedElement>
+</uml:Model>

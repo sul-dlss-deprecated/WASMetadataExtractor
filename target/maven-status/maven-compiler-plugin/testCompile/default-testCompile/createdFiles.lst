@@ -1,0 +1,6 @@
+edu/stanford/sulair/dlss/was/MetadataExtractorEngineTest.class
+edu/stanford/sulair/dlss/was/metadata/reader/WarcReaderWrapperTest.class
+edu/stanford/sulair/dlss/was/metadata/reader/ArcReaderWrapperTest.class
+edu/stanford/sulair/dlss/was/ExtractorFactoryTest.class
+edu/stanford/sulair/dlss/was/WASMetadataExtractorAppTest.class
+edu/stanford/sulair/dlss/was/MetadataParserTest.class
