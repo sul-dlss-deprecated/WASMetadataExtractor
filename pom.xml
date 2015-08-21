@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>WASMetadataExtractor</groupId>
   <artifactId>WASMetadataExtractor</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.2-SNAPSHOT</version>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <testSourceDirectory>test</testSourceDirectory>
@@ -33,7 +33,7 @@
   <artifactId>maven-surefire-plugin</artifactId>
   <configuration>
     <forkMode>pertest</forkMode>
-    <argLine>-Xms1512m -Xmx512m</argLine>
+    <argLine>-Xms1512m -Xmx1512m</argLine>
     <testFailureIgnore>false</testFailureIgnore>
     <skip>false</skip>
   </configuration>
