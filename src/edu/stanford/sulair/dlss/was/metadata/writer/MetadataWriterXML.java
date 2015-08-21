@@ -82,7 +82,7 @@ public class MetadataWriterXML extends MetadataWriterAbstract {
 		Iterator<String> iterator = set.iterator();
 		while(iterator.hasNext()){
 			String key = iterator.next();
-			file.appendChild(getTextElements(doc, key,(String)repo.metadataMap.get(key) ));
+			file.appendChild(getTextElements(doc, key, ((String)repo.metadataMap.get(key)).trim() ));
 		}
 		return file;
 	}
