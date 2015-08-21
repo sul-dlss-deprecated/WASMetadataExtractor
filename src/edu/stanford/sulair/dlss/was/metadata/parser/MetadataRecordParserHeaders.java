@@ -10,12 +10,10 @@ public class MetadataRecordParserHeaders extends MetadataRecordParser {
 	public Object getValue(MetadataRepository metadataRepository, Map recordMap) {
 
 		String path = getPathValue(recordMap);
-		
-		if(path == null || path.length()<1){
+
+		if (path == null || path.length() < 1) {
 			return null;
 		}
 		return metadataRepository.headerMap.get(path);
-
 	}
-
 }

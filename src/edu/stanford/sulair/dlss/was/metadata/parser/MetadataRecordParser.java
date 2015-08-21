@@ -4,12 +4,7 @@
 package edu.stanford.sulair.dlss.was.metadata.parser;
 
 import java.util.Map;
-
 import edu.stanford.sulair.dlss.was.metadata.MetadataRepository;
-
-// Start of user code (user defined imports)
-
-// End of user code
 
 /**
  * Description of MetadataRecordParser.
@@ -17,10 +12,8 @@ import edu.stanford.sulair.dlss.was.metadata.MetadataRepository;
  * @author aalsum
  */
 public abstract class MetadataRecordParser {
-	// Start of user code (user defined attributes for MetadataRecordParser)
-
-	// End of user code
 	static final String PATH = "path";
+
 	/**
 	 * The constructor.
 	 */
@@ -28,12 +21,12 @@ public abstract class MetadataRecordParser {
 		super();
 	}
 
-	public abstract Object getValue(MetadataRepository metadataRepository,Map recordMap) ;
+	public abstract Object getValue(MetadataRepository metadataRepository,
+			Map recordMap);
 
 	protected String getPathValue(Map recordMap) {
-		
-		if(recordMap.containsKey(PATH)){
-			 return (String) recordMap.get(PATH);
+		if (recordMap.containsKey(PATH)) {
+			return (String) recordMap.get(PATH);
 		}
 		return null;
 	}

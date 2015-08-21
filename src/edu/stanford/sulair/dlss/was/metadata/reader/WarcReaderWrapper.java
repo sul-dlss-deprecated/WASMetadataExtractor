@@ -24,10 +24,9 @@ import edu.stanford.sulair.dlss.was.metadata.MetadataRepository;
  * 
  * @author aalsum
  */
-public class WarcReaderWrapper extends WAReader{
+public class WarcReaderWrapper extends WAReader {
 
 	private static final String BASIC_FILE_TYPE = "WARC";
-
 	public static String INFO_TYPE_STR = "warcinfo";
 
 	public WarcReaderWrapper(String fileName) {
@@ -37,59 +36,60 @@ public class WarcReaderWrapper extends WAReader{
 	public WarcReaderWrapper(File fileObj) {
 		super(fileObj);
 	}
-	
+
 	@Override
-	public MetadataRepository fillMetadataRepositoryFromFile() throws FileNotFoundException, IOException {
-		//This function needs refactoring because it is similar to ARC equivalent
+	public MetadataRepository fillMetadataRepositoryFromFile()
+			throws FileNotFoundException, IOException {
+		// This function needs refactoring because it is similar to ARC
+		// equivalent
 		MetadataRepository metadataRepository = fillBasicInformationFromFile();
 		metadataRepository.setFileType(BASIC_FILE_TYPE);
-				
+
 		InputStream fis = new FileInputStream(fileObj);
 		WarcReader warcReder = WarcReaderFactory.getReader(fis);
 		Iterator<WarcRecord> records = warcReder.iterator();
 
 		int recordCount = 0;
-		while (records.hasNext()) { 
+		while (records.hasNext()) {
 			WarcRecord wr = records.next();
 
-			if(INFO_TYPE_STR.equalsIgnoreCase(wr.header.warcTypeStr)){
-				
-				//Read the headers fields into the HeaderMap
+			if (INFO_TYPE_STR.equalsIgnoreCase(wr.header.warcTypeStr)) {
+
+				// Read the headers fields into the HeaderMap
 				fillHeaderMap(wr, metadataRepository);
-				
-				//Read the payload in one string
+
+				// Read the payload in one string
 				fillPayloadString(metadataRepository, wr);
 			}
 			recordCount++;
-		}	
-		
-		metadataRepository.setRecordCount(recordCount);
-		
-		if(metadataRepository.headerMap.size() == 0){
-			throw new IOException(fileObj+" doesn't contain warcinfo headers.");
 		}
-		
+
+		metadataRepository.setRecordCount(recordCount);
+
+		if (metadataRepository.headerMap.size() == 0) {
+			throw new IOException(fileObj
+					+ " doesn't contain warcinfo headers.");
+		}
+
 		fis.close();
 		return metadataRepository;
 	}
 
 	private void fillPayloadString(MetadataRepository metadataRepository,
 			WarcRecord wr) throws IOException {
-		BufferedReader reader = new BufferedReader(
-				new InputStreamReader(wr.getPayloadContent()));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(
+				wr.getPayloadContent()));
 		StringBuffer payloadTempStr = new StringBuffer();
 		while (reader.ready()) {
-			payloadTempStr.append(reader.readLine()+"\n");
+			payloadTempStr.append(reader.readLine() + "\n");
 		}
-		
 		metadataRepository.setPayload(payloadTempStr.toString());
 	}
 
-	private void fillHeaderMap(WarcRecord wr, MetadataRepository metadataRepository) {
+	private void fillHeaderMap(WarcRecord wr,
+			MetadataRepository metadataRepository) {
 		for (HeaderLine s : wr.getHeaderList()) {
 			metadataRepository.headerMap.put(s.name, s.value);
 		}
 	}
-
-	
 }

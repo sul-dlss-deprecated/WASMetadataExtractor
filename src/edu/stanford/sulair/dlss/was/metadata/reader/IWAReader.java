@@ -17,6 +17,6 @@ import edu.stanford.sulair.dlss.was.metadata.MetadataRepository;
  */
 public interface IWAReader {
 
-	public MetadataRepository fillMetadataRepositoryFromFile() throws FileNotFoundException, IOException ;
-
+	public MetadataRepository fillMetadataRepositoryFromFile()
+			throws FileNotFoundException, IOException;
 }

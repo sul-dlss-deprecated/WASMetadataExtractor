@@ -19,12 +19,12 @@ public class GeneralReader extends WAReader {
 	}
 
 	@Override
-	public MetadataRepository fillMetadataRepositoryFromFile() throws FileNotFoundException, IOException {
-		
+	public MetadataRepository fillMetadataRepositoryFromFile()
+			throws FileNotFoundException, IOException {
+
 		MetadataRepository metadataRepository = fillBasicInformationFromFile();
 		metadataRepository.setFileType(BASIC_FILE_TYPE);
 
 		return metadataRepository;
 	}
-
 }

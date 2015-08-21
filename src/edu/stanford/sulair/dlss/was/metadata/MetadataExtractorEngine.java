@@ -10,88 +10,83 @@ import edu.stanford.sulair.dlss.was.metadata.writer.IMetadataWriter;
 import edu.stanford.sulair.dlss.was.metadata.writer.MetadataWriterDefault;
 
 public class MetadataExtractorEngine {
-	
-	private ArrayList<File> fileList = null; 
-	
+
+	private ArrayList<File> fileList = null;
 	private String configFile = null;
-	
 	private IMetadataWriter writer = null;
-	public MetadataExtractorEngine(ArrayList<File> fileList){
-		this.fileList =fileList;
+
+	public MetadataExtractorEngine(ArrayList<File> fileList) {
+		this.fileList = fileList;
 		writer = new MetadataWriterDefault(System.out);
-		
 	}
-	
-	public MetadataExtractorEngine(ArrayList<File> fileList, IMetadataWriter writer){
-		this.fileList =fileList;
+
+	public MetadataExtractorEngine(ArrayList<File> fileList,
+			IMetadataWriter writer) {
+		this.fileList = fileList;
 		this.writer = writer;
 	}
-	
-	public MetadataExtractorEngine(ArrayList<File> fileList, String configFile, IMetadataWriter writer){
-		this.fileList =fileList;
+
+	public MetadataExtractorEngine(ArrayList<File> fileList, String configFile,
+			IMetadataWriter writer) {
+		this.fileList = fileList;
 		this.writer = writer;
 		this.configFile = configFile;
-
 	}
+
 	/**
 	 * @param file
 	 */
-	public MetadataExtractorEngine(File file){
-		fileList =new ArrayList<File>(1);
+	public MetadataExtractorEngine(File file) {
+		fileList = new ArrayList<File>(1);
 		fileList.add(file);
 	}
-	
+
 	/**
 	 * @param fileName
 	 */
-	public MetadataExtractorEngine(String fileName){
+	public MetadataExtractorEngine(String fileName) {
 		File file = new File(fileName);
-		fileList =new ArrayList<File>(1);
+		fileList = new ArrayList<File>(1);
 		fileList.add(file);
 	}
-	
-	public MetadataExtractorEngine(ArrayList<File> fileList, String configFile){
-		this.fileList =fileList;
+
+	public MetadataExtractorEngine(ArrayList<File> fileList, String configFile) {
+		this.fileList = fileList;
 		this.configFile = configFile;
 	}
-	
+
 	/**
 	 * @param file
 	 */
-	public MetadataExtractorEngine(File file, String configFile){
-		fileList =new ArrayList<File>(1);
+	public MetadataExtractorEngine(File file, String configFile) {
+		fileList = new ArrayList<File>(1);
 		fileList.add(file);
 		this.configFile = configFile;
 	}
-	
+
 	/**
 	 * @param fileName
 	 */
-	public MetadataExtractorEngine(String fileName, String configFile){
+	public MetadataExtractorEngine(String fileName, String configFile) {
 		File file = new File(fileName);
-		fileList =new ArrayList<File>(1);
+		fileList = new ArrayList<File>(1);
 		fileList.add(file);
 		this.configFile = configFile;
 	}
-	
 
-	
-	public void runExtractor(){
-		
-		
+	public void runExtractor() {
+
 		ArrayList<MetadataRepository> repoList = new ArrayList<MetadataRepository>();
 		MetadataParser parser = null;
-		if(configFile == null){
+		if (configFile == null) {
 			parser = new MetadataParser();
 		} else {
 			parser = new MetadataParser(configFile);
 		}
-		
-		for(File f: fileList){
-		
+
+		for (File f : fileList) {
 			try {
-				 repoList.add( parser.extractWAMetadata(f));
-				
+				repoList.add(parser.extractWAMetadata(f));
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 				System.exit(-1);
@@ -100,18 +95,13 @@ public class MetadataExtractorEngine {
 				System.exit(-1);
 			}
 		}
-		
 		writer.setMetadataRepositoryList(repoList);
 	}
-	
-	public void runExtractorToFile(){
-		
+
+	public void runExtractorToFile() {
 	}
-	
-	public IMetadataWriter getWriter(){
+
+	public IMetadataWriter getWriter() {
 		return this.writer;
 	}
-	
-	
-	
 }
