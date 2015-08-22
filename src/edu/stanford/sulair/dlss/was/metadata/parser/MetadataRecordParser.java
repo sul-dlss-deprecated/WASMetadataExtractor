@@ -7,7 +7,10 @@ import java.util.Map;
 import edu.stanford.sulair.dlss.was.metadata.MetadataRepository;
 
 /**
- * Description of MetadataRecordParser.
+ * It's the abstract class for reading every record
+ * in the metadata based on the type. Each metadata 
+ * record type will have its own class. The metadata type
+ * is defined in the yml configuration file.
  * 
  * @author aalsum
  */
@@ -24,6 +27,11 @@ public abstract class MetadataRecordParser {
 	public abstract Object getValue(MetadataRepository metadataRepository,
 			Map recordMap);
 
+	/** Extracts the metadata record path. The path value
+	 * will change based on the record type.
+	 * @param recordMap describes all metadata records information.
+	 * @return the value of the path key or null if it's not found.
+	 */
 	protected String getPathValue(Map recordMap) {
 		if (recordMap.containsKey(PATH)) {
 			return (String) recordMap.get(PATH);

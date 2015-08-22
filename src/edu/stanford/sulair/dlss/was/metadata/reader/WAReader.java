@@ -12,6 +12,11 @@ import org.apache.commons.io.IOUtils;
 
 import edu.stanford.sulair.dlss.was.metadata.MetadataRepository;
 
+/** An abstract class that provides the basic functionalities for
+ * the child classes.
+ * @author aalsum
+ *
+ */
 abstract public class WAReader implements IWAReader {
 
 	@Override
@@ -30,6 +35,10 @@ abstract public class WAReader implements IWAReader {
 		this.fileObj = fileObj;
 	}
 
+	/** Fills the basic information about the file such as: the size, 
+	 * mimeType, and checksum.
+	 * @return MetadataRepository object with the basic information
+	 */
 	protected MetadataRepository fillBasicInformationFromFile() {
 		MetadataRepository metadataRepository = new MetadataRepository(fileObj);
 		metadataRepository.setSize(fileObj.length());
@@ -45,6 +54,10 @@ abstract public class WAReader implements IWAReader {
 		return metadataRepository;
 	}
 
+	/**
+	 * @return String the checksum in MD5
+	 * @throws IOException
+	 */
 	protected String computeChecksumMD5() throws IOException {
 		FileInputStream fis = new FileInputStream(fileObj);
 		String md5Hash = DigestUtils.md5Hex(IOUtils.toByteArray(fis))
@@ -54,6 +67,10 @@ abstract public class WAReader implements IWAReader {
 		return md5Hash;
 	}
 
+	/**
+	 * @return String the checksum in MD5
+	 * @throws IOException
+	 */
 	protected String computeChecksumSHA1() throws IOException {
 		FileInputStream fis = new FileInputStream(fileObj);
 		String sha1Hash = DigestUtils.sha1Hex(IOUtils.toByteArray(fis))

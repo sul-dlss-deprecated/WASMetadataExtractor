@@ -9,6 +9,11 @@ import edu.stanford.sulair.dlss.was.metadata.parser.MetadataParser;
 import edu.stanford.sulair.dlss.was.metadata.writer.IMetadataWriter;
 import edu.stanford.sulair.dlss.was.metadata.writer.MetadataWriterDefault;
 
+/**
+ * Runs the extractor based on the inputs
+ * @author aalsum
+ *
+ */
 public class MetadataExtractorEngine {
 
 	private ArrayList<File> fileList = null;

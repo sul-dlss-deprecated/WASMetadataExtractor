@@ -11,7 +11,7 @@ import edu.stanford.sulair.dlss.was.metadata.reader.IWAReader;
 import edu.stanford.sulair.dlss.was.metadata.reader.WarcReaderWrapper;
 
 /**
- * Description of ExtractorFactory.
+ * Chooses the extractor based on file type.
  * 
  * @author aalsum
  */

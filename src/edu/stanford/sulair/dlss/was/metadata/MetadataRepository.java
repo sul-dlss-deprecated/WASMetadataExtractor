@@ -9,7 +9,8 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- * Description of MetadataRepository.
+ * Represents the list of metadata fields that can be extracted
+ * from the ARC/WARC files
  * 
  * @author aalsum
  */

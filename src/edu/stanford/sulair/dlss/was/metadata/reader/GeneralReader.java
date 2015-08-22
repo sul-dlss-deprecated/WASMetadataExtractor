@@ -6,6 +6,10 @@ import java.io.IOException;
 
 import edu.stanford.sulair.dlss.was.metadata.MetadataRepository;
 
+/** It's the basic implementation of WAReader to cover the basic information 
+ * about the non-Web archiving files.
+ * @author aalsum
+ */
 public class GeneralReader extends WAReader {
 
 	private static final String BASIC_FILE_TYPE = "GENERAL";	

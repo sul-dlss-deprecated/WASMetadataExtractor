@@ -4,8 +4,39 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
+
 import edu.stanford.sulair.dlss.was.metadata.MetadataRepository;
 
+/** 
+ * Extracts Metadata record in the name-value List format.
+ * The extracted metadata may be like:
+ * <pre>{@code
+ * description: recurrence=QUARTERLY, maxDuration=604800, maxDocumentCount=null
+ * }</pre>
+ * And the configuration in config/extractor.yml may be like:
+ * <pre>{@code
+ * maxDuration:
+ *   type: NameValueList
+ *   recordSeparator: ["\n",","]
+ *   fieldSeparator: "="
+ *   path: maxDuration
+ * }</pre>
+ * The code snippet should be
+ * <pre>{@code
+ * Map map = new Map();
+ * map.add("type", "NameValueList");
+ * map.add("recordSeparator", ["\n",","]);
+ * map.add("fieldSeparator", "=");
+ * map.add("path", "maxDuration");
+ * mrpXML = MetadataRecordParserXML.new();
+ * mrpXML.getValue(mdr, map);
+ * }</pre>
+ * The output is 
+ * <pre>{@code
+ *   604800
+ * }</pre>
+ * @author aalsum
+ */
 public class MetadataRecordParserNameValueList extends MetadataRecordParser {
 
 	@Override

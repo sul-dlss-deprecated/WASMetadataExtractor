@@ -21,7 +21,9 @@ import org.jwat.arc.ArcRecordBase;
 import edu.stanford.sulair.dlss.was.metadata.MetadataRepository;
 
 /**
- * Description of ArcReaderWrapper.
+ * ArcReaderWrapper is a wrapper for jwat package to read the Arc files. 
+ * Instead of reading the file content, the ArcReaderWrapper will read
+ * the content and convert it into MetadataRepository output.
  * 
  * @author aalsum
  */
