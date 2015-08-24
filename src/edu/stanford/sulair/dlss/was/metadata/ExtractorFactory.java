@@ -10,55 +10,47 @@ import edu.stanford.sulair.dlss.was.metadata.reader.GeneralReader;
 import edu.stanford.sulair.dlss.was.metadata.reader.IWAReader;
 import edu.stanford.sulair.dlss.was.metadata.reader.WarcReaderWrapper;
 
-// Start of user code (user defined imports)
-
-// End of user code
-
 /**
- * Description of ExtractorFactory.
+ * Chooses the extractor based on file type.
  * 
  * @author aalsum
  */
 public class ExtractorFactory {
-	// Start of user code (user defined attributes for ExtractorFactory)
-
-	// End of user code
-
 	/**
 	 * The constructor.
 	 */
 	private ExtractorFactory() {
-		// Start of user code constructor for ExtractorFactory)
 		super();
-		// End of user code
 	}
 
 	/**
 	 * Description of the method GetExtractor.
-	 * @param type 
-	 * @return 
+	 * 
+	 * @param type
+	 * @return
 	 */
 	public static IWAReader getExtractor(String fileName) {
 		return getExtractor(new File(fileName));
 	}
-	
+
 	/**
 	 * Description of the method GetExtractor.
-	 * @param type 
-	 * @return 
+	 * 
+	 * @param type
+	 * @return
 	 */
 	public static IWAReader getExtractor(File fileObj) {
-		
+
 		String fileName = fileObj.getName();
-		if(null == fileName || fileName.length()<1){
+		if (null == fileName || fileName.length() < 1) {
 			return null;
 		}
-		
-		if(fileName.endsWith(".arc")||fileName.endsWith(".arc.gz")){
+
+		if (fileName.endsWith(".arc") || fileName.endsWith(".arc.gz")) {
 			return new ArcReaderWrapper(fileObj);
-		}else if(fileName.endsWith(".warc")||fileName.endsWith(".warc.gz")){
+		} else if (fileName.endsWith(".warc") || fileName.endsWith(".warc.gz")) {
 			return new WarcReaderWrapper(fileObj);
-		} else{
+		} else {
 			return new GeneralReader(fileObj);
 		}
 	}

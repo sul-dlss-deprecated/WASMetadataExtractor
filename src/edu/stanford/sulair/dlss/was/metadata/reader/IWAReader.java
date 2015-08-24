@@ -11,12 +11,19 @@ import edu.stanford.sulair.dlss.was.metadata.MetadataRepository;
 // End of user code
 
 /**
- * Description of WAReaderInterface.
+ * IWAReader is the interface for the process of reading 
+ * Web archiving files and returns MetadataRepository obj.
  * 
  * @author aalsum
  */
 public interface IWAReader {
 
-	public MetadataRepository fillMetadataRepositoryFromFile() throws FileNotFoundException, IOException ;
-
+	/**
+	 * Fills the MetadataRepository object from the file content
+	 * @return MetadataRepository filled with the metadata from the file
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
+	public MetadataRepository fillMetadataRepositoryFromFile()
+			throws FileNotFoundException, IOException;
 }

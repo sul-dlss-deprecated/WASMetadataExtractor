@@ -28,7 +28,7 @@ public class MetadataWriterXML extends MetadataWriterAbstract {
 
 	@Override
 	public void print(String collectionId, String crawlId) {
-		
+
 		Document doc = null;
 		try {
 			doc = createDOMObject();
@@ -39,26 +39,23 @@ public class MetadataWriterXML extends MetadataWriterAbstract {
 
 		Element crawlObject = doc.createElement("crawlObject");
 		doc.appendChild(crawlObject);
-		
+
 		Element crawlElement = doc.createElement("crawlId");
-		
 		crawlElement.appendChild(doc.createTextNode(crawlId));
 		crawlObject.appendChild(crawlElement);
 
 		Element collectionElement = doc.createElement("collectionId");
-		
 		collectionElement.appendChild(doc.createTextNode(collectionId));
 		crawlObject.appendChild(collectionElement);
 
 		Element files = doc.createElement("files");
 		crawlObject.appendChild(files);
-		
-		for(MetadataRepository repo: repoList){
-			Element file = createFileElement(doc,repo);
+
+		for (MetadataRepository repo : repoList) {
+			Element file = createFileElement(doc, repo);
 			files.appendChild(file);
 		}
-		
-		
+
 		try {
 			writeDOMObject(doc);
 		} catch (TransformerException e) {
@@ -68,61 +65,61 @@ public class MetadataWriterXML extends MetadataWriterAbstract {
 	}
 
 	private Element createFileElement(Document doc, MetadataRepository repo) {
-		
-		Element file = doc.createElement("file");
-		file.appendChild(getTextElements(doc,"name",repo.fileName ));
-		file.appendChild(getTextElements(doc,"type",repo.fileType ));
-		file.appendChild(getTextElements(doc, "size",String.valueOf( repo.size) ));
-		file.appendChild(getTextElements(doc, "recordCount",String.valueOf(repo.recordCount) ));
-		file.appendChild(getTextElements(doc,"mimeType",repo.mimeType ));
-		file.appendChild(getTextElements(doc,"checksumMD5",repo.checksumMD5 ));
-		file.appendChild(getTextElements(doc,"checksumSHA1",repo.checksumSHA1 ));
+
+		Element fileElement = doc.createElement("file");
+		fileElement.appendChild(getTextElements(doc, "name", repo.fileName));
+		fileElement.appendChild(getTextElements(doc, "type", repo.fileType));
+		fileElement.appendChild(getTextElements(doc, "size", String.valueOf(repo.size)));
+		fileElement.appendChild(getTextElements(doc, "recordCount",
+				String.valueOf(repo.recordCount)));
+		fileElement.appendChild(getTextElements(doc, "mimeType", repo.mimeType));
+		fileElement.appendChild(getTextElements(doc, "checksumMD5", repo.checksumMD5));
+		fileElement.appendChild(getTextElements(doc, "checksumSHA1", repo.checksumSHA1));
 
 		Set<String> set = repo.metadataMap.keySet();
 		Iterator<String> iterator = set.iterator();
-		while(iterator.hasNext()){
+		while (iterator.hasNext()) {
 			String key = iterator.next();
-			file.appendChild(getTextElements(doc, key, ((String)repo.metadataMap.get(key)).trim() ));
+			fileElement.appendChild(getTextElements(doc, key,
+					((String) repo.metadataMap.get(key)).trim()));
 		}
-		return file;
+		return fileElement;
 	}
 
-    //utility method to create text node
-    private  Node getTextElements(Document doc,  String name, String value) {
-        Element node = doc.createElement(name);
-        node.appendChild(doc.createTextNode(value));
-        return node;
-    }
+	// utility method to create text node
+	private Node getTextElements(Document doc, String name, String value) {
+		Element node = doc.createElement(name);
+		node.appendChild(doc.createTextNode(value));
+		return node;
+	}
+
 	private Document createDOMObject() throws ParserConfigurationException {
 		DocumentBuilderFactory builderFactory = DocumentBuilderFactory
 				.newInstance();
 		DocumentBuilder builder = null;
-		
+
 		builder = builderFactory.newDocumentBuilder();
 
 		return builder.newDocument();
-		
-		
 	}
-	
-	private void writeDOMObject(Document doc) throws TransformerException{
-		//for output to file, console
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer();
-        //for pretty print
-        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        DOMSource source = new DOMSource(doc);
 
-        //write to console or file
-        StreamResult console = new StreamResult(out);
+	private void writeDOMObject(Document doc) throws TransformerException {
+		// for output to file, console
+		TransformerFactory transformerFactory = TransformerFactory
+				.newInstance();
+		Transformer transformer = transformerFactory.newTransformer();
+		// for pretty print
+		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		DOMSource source = new DOMSource(doc);
 
-        //write data
-        transformer.transform(source, console);
+		// write to console or file
+		StreamResult console = new StreamResult(out);
 
+		// write data
+		transformer.transform(source, console);
 	}
 
 	public static void main(String[] args) {
-
 		MetadataWriterXML writer = new MetadataWriterXML(System.out);
 		writer.print();
 	}
