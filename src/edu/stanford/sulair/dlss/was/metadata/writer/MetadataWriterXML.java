@@ -41,12 +41,10 @@ public class MetadataWriterXML extends MetadataWriterAbstract {
 		doc.appendChild(crawlObject);
 
 		Element crawlElement = doc.createElement("crawlId");
-
 		crawlElement.appendChild(doc.createTextNode(crawlId));
 		crawlObject.appendChild(crawlElement);
 
 		Element collectionElement = doc.createElement("collectionId");
-
 		collectionElement.appendChild(doc.createTextNode(collectionId));
 		crawlObject.appendChild(collectionElement);
 
@@ -68,24 +66,24 @@ public class MetadataWriterXML extends MetadataWriterAbstract {
 
 	private Element createFileElement(Document doc, MetadataRepository repo) {
 
-		Element file = doc.createElement("file");
-		file.appendChild(getTextElements(doc, "name", repo.fileName));
-		file.appendChild(getTextElements(doc, "type", repo.fileType));
-		file.appendChild(getTextElements(doc, "size", String.valueOf(repo.size)));
-		file.appendChild(getTextElements(doc, "recordCount",
+		Element fileElement = doc.createElement("file");
+		fileElement.appendChild(getTextElements(doc, "name", repo.fileName));
+		fileElement.appendChild(getTextElements(doc, "type", repo.fileType));
+		fileElement.appendChild(getTextElements(doc, "size", String.valueOf(repo.size)));
+		fileElement.appendChild(getTextElements(doc, "recordCount",
 				String.valueOf(repo.recordCount)));
-		file.appendChild(getTextElements(doc, "mimeType", repo.mimeType));
-		file.appendChild(getTextElements(doc, "checksumMD5", repo.checksumMD5));
-		file.appendChild(getTextElements(doc, "checksumSHA1", repo.checksumSHA1));
+		fileElement.appendChild(getTextElements(doc, "mimeType", repo.mimeType));
+		fileElement.appendChild(getTextElements(doc, "checksumMD5", repo.checksumMD5));
+		fileElement.appendChild(getTextElements(doc, "checksumSHA1", repo.checksumSHA1));
 
 		Set<String> set = repo.metadataMap.keySet();
 		Iterator<String> iterator = set.iterator();
 		while (iterator.hasNext()) {
 			String key = iterator.next();
-			file.appendChild(getTextElements(doc, key,
+			fileElement.appendChild(getTextElements(doc, key,
 					((String) repo.metadataMap.get(key)).trim()));
 		}
-		return file;
+		return fileElement;
 	}
 
 	// utility method to create text node

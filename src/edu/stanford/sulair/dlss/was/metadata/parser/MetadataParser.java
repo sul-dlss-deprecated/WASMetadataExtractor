@@ -52,10 +52,7 @@ public class MetadataParser {
 		MetadataRepository metadataRepository = waReader
 				.fillMetadataRepositoryFromFile();
 
-		Yaml yaml = new Yaml();
-		Map map = (Map) yaml.load(new FileInputStream(configFilePath));
-
-		Map configMap = (Map) map.get(metadataRepository.getFileType());
+		Map configMap = loadConfigFile(metadataRepository.getFileType());
 
 		Set<String> set = configMap.keySet();
 		Iterator<String> iterator = set.iterator();
@@ -89,6 +86,15 @@ public class MetadataParser {
 		}
 
 		return metadataRepository;
+	}
+
+	private Map loadConfigFile(String fileType)
+			throws FileNotFoundException {
+		Yaml yaml = new Yaml();
+		Map map = (Map) yaml.load(new FileInputStream(configFilePath));
+
+		Map configMap = (Map) map.get(fileType);
+		return configMap;
 	}
 
 	private MetadataRecordParser getMetadataRecordParserObject(String parserType)
