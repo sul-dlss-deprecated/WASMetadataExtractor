@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import javax.activation.MimetypesFileTypeMap;
 
@@ -50,33 +52,62 @@ abstract public class WAReader implements IWAReader {
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(-1);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.exit(-1);
 		}
 		return metadataRepository;
 	}
 
 	/**
-	 * @return String the checksum in MD5
-	 * @throws IOException
+	 * Computes the MD5 hash for the file defined by file input stream
+	 * @param fis input stream for the file
+	 * @return
 	 */
-	protected String computeChecksumMD5() throws IOException {
+	private String computeChecksumMD5() throws java.io.IOException, NoSuchAlgorithmException{
 		FileInputStream fis = new FileInputStream(fileObj);
-		String md5Hash = DigestUtils.md5Hex(IOUtils.toByteArray(fis))
-				.toLowerCase();
+		MessageDigest digest = MessageDigest.getInstance("MD5");
+		
+		byte[] bytesBuffer = new byte[1024];
+		int bytesRead = -1;
+		while ((bytesRead = fis.read(bytesBuffer)) != -1) {
+			digest.update(bytesBuffer, 0, bytesRead);
+		}
 		fis.close();
-
-		return md5Hash;
+		return convertByteArrayToHexString(digest.digest());
+	}
+	
+	
+	/**
+	 * Converts the bytearray to String
+	 * @param arrayBytes
+	 * @return
+	 */
+	private static String convertByteArrayToHexString(byte[] arrayBytes) {
+	    StringBuffer stringBuffer = new StringBuffer();
+	    for (int i = 0; i < arrayBytes.length; i++) {
+	        stringBuffer.append(Integer.toString((arrayBytes[i] & 0xff) + 0x100, 16)
+	                .substring(1));
+	    }
+	    return stringBuffer.toString().toLowerCase();
 	}
 
 	/**
 	 * @return String the checksum in MD5
 	 * @throws IOException
+	 * @throws NoSuchAlgorithmException 
 	 */
-	protected String computeChecksumSHA1() throws IOException {
+	protected String computeChecksumSHA1() throws IOException, NoSuchAlgorithmException {
 		FileInputStream fis = new FileInputStream(fileObj);
-		String sha1Hash = DigestUtils.sha1Hex(IOUtils.toByteArray(fis))
-				.toLowerCase();
+		MessageDigest digest = MessageDigest.getInstance("SHA-1");
+		
+		byte[] bytesBuffer = new byte[1024];
+		int bytesRead = -1;
+		while ((bytesRead = fis.read(bytesBuffer)) != -1) {
+			digest.update(bytesBuffer, 0, bytesRead);
+		}
 		fis.close();
-
-		return sha1Hash;
+		return convertByteArrayToHexString(digest.digest());
 	}
 }
