@@ -1,23 +1,32 @@
-# WAS Metadata Extarctor
-This is a jar file that is used to extract a light set of metadata from web archiving ARC and WARC files.
+
+[![Build Status](https://travis-ci.org/sul-dlss/WASMetadataExtractor.svg?branch=master)](https://travis-ci.org/sul-dlss/WASMetadataExtractor)
+[![Coverage Status](https://coveralls.io/repos/github/sul-dlss/WASMetadataExtractor/badge.svg?branch=master)](https://coveralls.io/github/sul-dlss/WASMetadataExtractor?branch=master)
+
+# WAS Metadata Extractor
+
+Java code used to extract metadata from web archiving ARC and WARC files, used by WAS crawl preassembly robot WF.
+
+Deployment of the jar is part of [deployment tasks in `was_robot_suite`](https://github.com/sul-dlss/was_robot_suite/blob/master/config/deploy.rb#L40-L45), via an artifact created at [jenkinsqa](https://jenkinsqa.stanford.edu/job/WAS%20Metadata%20Extractor/). The deployed `was_robot_suite` houses the `WASMetadataExtractor.jar` in the `jar` directory.
 
 ## Build
-```mvn install```
+```
+mvn install
+```
 
 ## Configuration
-WAS Metadata Extractor depends on yml file that describes the file types and the expected headers in each file. 
+WAS Metadata Extractor depends on `config/extractor.yml` which describes the file types and the expected headers in each file.
 
-### Format
+### Format of extractor.yml
 ```
 ARC:
  id:
   type: Headers
   path: "ARC-Filename"
 ```
-Line 1. File type
-Line 2. properties name
-Line 3. the type of how to get this value
-Line 4. the location of this value based on the proprites type
+- Line 1. File type
+  - Line 2. properties name
+    - Line 3. the type of how to get this value
+    - Line 4. the location of this value based on the properties type
 
 Other types can have different properties.
 
@@ -25,7 +34,7 @@ Other types can have different properties.
 
 List usage command
 ```
-java -jar WASMetadataExtractor-0.0.1-SNAPSHOT-jar-with-dependencies.jar  -h
+java -jar WASMetadataExtractor-0.0.2-SNAPSHOT-jar-with-dependencies.jar  -h
 usage: WASMetadataExtractor
  -c,--config <file>                 YAML configuration file to extract the
                                     metadata.
@@ -43,3 +52,7 @@ usage: WASMetadataExtractor
  -o,--outputFile <file>             The output file.
 ```
 
+## Run Tests
+```
+mvn test -B
+```
