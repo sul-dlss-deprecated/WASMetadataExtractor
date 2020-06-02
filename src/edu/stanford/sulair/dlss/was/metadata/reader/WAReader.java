@@ -37,15 +37,14 @@ abstract public class WAReader implements IWAReader {
 		this.fileObj = fileObj;
 	}
 
-	/** Fills the basic information about the file such as: the size, 
+	/** Fills the basic information about the file such as: the size,
 	 * mimeType, and checksum.
 	 * @return MetadataRepository object with the basic information
 	 */
 	protected MetadataRepository fillBasicInformationFromFile() {
 		MetadataRepository metadataRepository = new MetadataRepository(fileObj);
 		metadataRepository.setSize(fileObj.length());
-		metadataRepository.setMimeType((new MimetypesFileTypeMap()
-				.getContentType(fileObj)).toString());
+		metadataRepository.setMimeType(getBasicInformationMimeType());
 		try {
 			metadataRepository.setChecksumMD5(computeChecksumMD5());
 			metadataRepository.setChecksumSHA1(computeChecksumSHA1());
@@ -60,6 +59,10 @@ abstract public class WAReader implements IWAReader {
 		return metadataRepository;
 	}
 
+	protected String getBasicInformationMimeType() {
+		return (new MimetypesFileTypeMap().getContentType(fileObj)).toString();
+	}
+
 	/**
 	 * Computes the MD5 hash for the file defined by file input stream
 	 * @param fis input stream for the file
@@ -68,7 +71,7 @@ abstract public class WAReader implements IWAReader {
 	private String computeChecksumMD5() throws java.io.IOException, NoSuchAlgorithmException{
 		FileInputStream fis = new FileInputStream(fileObj);
 		MessageDigest digest = MessageDigest.getInstance("MD5");
-		
+
 		byte[] bytesBuffer = new byte[1024];
 		int bytesRead = -1;
 		while ((bytesRead = fis.read(bytesBuffer)) != -1) {
@@ -77,8 +80,8 @@ abstract public class WAReader implements IWAReader {
 		fis.close();
 		return convertByteArrayToHexString(digest.digest());
 	}
-	
-	
+
+
 	/**
 	 * Converts the bytearray to String
 	 * @param arrayBytes
@@ -96,12 +99,12 @@ abstract public class WAReader implements IWAReader {
 	/**
 	 * @return String the checksum in MD5
 	 * @throws IOException
-	 * @throws NoSuchAlgorithmException 
+	 * @throws NoSuchAlgorithmException
 	 */
 	protected String computeChecksumSHA1() throws IOException, NoSuchAlgorithmException {
 		FileInputStream fis = new FileInputStream(fileObj);
 		MessageDigest digest = MessageDigest.getInstance("SHA-1");
-		
+
 		byte[] bytesBuffer = new byte[1024];
 		int bytesRead = -1;
 		while ((bytesRead = fis.read(bytesBuffer)) != -1) {

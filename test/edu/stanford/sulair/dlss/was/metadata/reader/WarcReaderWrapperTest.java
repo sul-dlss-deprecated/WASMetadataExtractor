@@ -20,20 +20,20 @@ public class WarcReaderWrapperTest {
 	}
 
 	@Test
-	public void testFillMetadataRepositoryFromFile() {		
+	public void testFillMetadataRepositoryFromFile() {
 		WarcReaderWrapper warcReader = new WarcReaderWrapper(warcFileName);
 		try {
 			MetadataRepository metadataRepo =  warcReader.fillMetadataRepositoryFromFile();
-	
+
 			assertTrue("WARC".equalsIgnoreCase(metadataRepo.getFileType()));
 			assertTrue("WARC-Test.warc.gz".equalsIgnoreCase(metadataRepo.fileName));
 			System.out.println(metadataRepo);
 			assertEquals(4027,metadataRepo.recordCount);
 			assertEquals(6608320,metadataRepo.size);
-			assertTrue("application/octet-stream".equalsIgnoreCase(metadataRepo.mimeType));
+			assertTrue("application/warc".equalsIgnoreCase(metadataRepo.mimeType));
 			assertTrue("3a9f2ffac1497c70291d93a8bc86c1469547d8f8".equalsIgnoreCase(metadataRepo.checksumSHA1));
 			assertTrue("c7edbde066e4697b3f2d823ac42c3692".equalsIgnoreCase(metadataRepo.checksumMD5));
-			
+
 			assertTrue("2014-01-19T22:37:40Z".equalsIgnoreCase((String)metadataRepo.getHeaderMap().get("WARC-Date")));
 			assertTrue("ARCHIVEIT-924-QUARTERLY-31501-20140119223740943-00015-wbgrp-crawl051.us.archive.org-6441.warc.gz".equalsIgnoreCase((String)metadataRepo.getHeaderMap().get("WARC-Filename")));
 			assertTrue("application/warc-fields".equalsIgnoreCase((String)metadataRepo.getHeaderMap().get("Content-Type")));
