@@ -20,10 +20,10 @@ import org.jwat.warc.WarcRecord;
 import edu.stanford.sulair.dlss.was.metadata.MetadataRepository;
 
 /**
- * WarcReaderWrapper is a wrapper for jwat package to read the Arc files. 
+ * WarcReaderWrapper is a wrapper for jwat package to read the Arc files.
  * Instead of reading the file content, the WarcReaderWrapper will read
  * the content and convert it into MetadataRepository output.
- * 
+ *
  * @author aalsum
  */
 public class WarcReaderWrapper extends WAReader {
@@ -75,6 +75,11 @@ public class WarcReaderWrapper extends WAReader {
 
 		fis.close();
 		return metadataRepository;
+	}
+
+	@Override
+	protected String getBasicInformationMimeType() {
+		return "application/warc";
 	}
 
 	private void fillPayloadString(MetadataRepository metadataRepository,
