@@ -44,7 +44,7 @@ public class MetadataWriterXMLTest {
 		reader.close();
 		
 		// Assert True the expected and actual strings are similar
-		assertTrue(xmlOutput.equalsIgnoreCase(actualOutput));
+		assertTrue(xmlOutput.equalsIgnoreCase(actualOutput.replaceAll("\n\\s+", "\n")));
 	}
 
 	@After
